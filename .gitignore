@@ -1,0 +1,23 @@
+# dependencies
+node_modules
+.idea
+.vscode
+config/
+env.js
+sw.js
+.firebaserc
+database.rules.json
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
+
+# logs
+npm-debug.log
+yarn-error.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
