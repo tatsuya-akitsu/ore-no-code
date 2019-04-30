@@ -34,13 +34,16 @@
         </h2>
         <div class="data-select__radio-grop">
           <label>
-            <input type="radio" name="constitution" value="寒がり">寒がり
+            <input type="radio" name="constitution" value="寒がり">
+            <span>寒がり</span>
           </label>
           <label>
-            <input type="radio" name="constitution" value="普通" checked="checked">普通
+            <input type="radio" name="constitution" value="普通" checked="checked">
+            <span>普通</span>
           </label>
           <label>
-            <input type="radio" name="constitution" value="暑がり">暑がり
+            <input type="radio" name="constitution" value="暑がり">
+            <span>暑がり</span>
           </label>
         </div>
       </div>
@@ -124,7 +127,6 @@
 }
 
 .data-select__area {
-  appearance: none;
   font-size: 14px;
   color: #016DDC;
   padding: 0 16px 0 12px;
@@ -135,6 +137,7 @@
   display: flex;
   align-content: center;
   width: 48.23%;
+  appearance: menulist;
 }
 
 .data-select__radio-grop {
@@ -155,7 +158,7 @@ label {
   position: relative;
 }
 
-label:before {
+label span:before {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -168,11 +171,11 @@ label:before {
   border-radius: 6px;
 }
 
-label:after {
+label span:after {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 14px;
+  left: 15px;
   margin: auto;
   display: block;
   content: "";
@@ -181,18 +184,18 @@ label:after {
   border-radius: 3px;
 }
 
-label input:checked:after {
-  background-color: #ddd;
-}
-
 label:nth-child(1) {
   border: 1px solid #016DDC;
   background-color: #F5FAFF;
   color: #016DDC;
 }
 
-label:nth-child(1):before {
+label:nth-child(1) span:before {
   border: 1px solid #016DDC;
+}
+
+label:nth-child(1) input:checked + span:after {
+  background-color: #016DDC;
 }
 
 label:nth-child(2) {
@@ -201,8 +204,12 @@ label:nth-child(2) {
   color: #DC7F01;
 }
 
-label:nth-child(2):before {
+label:nth-child(2) span:before {
   border: 1px solid #DC7F01;
+}
+
+label:nth-child(2) input:checked + span:after {
+  background-color: #DC7F01;
 }
 
 label:nth-child(3) {
@@ -211,8 +218,12 @@ label:nth-child(3) {
   color: #EF5350;
 }
 
-label:nth-child(3):before {
+label:nth-child(3) span:before {
   border: 1px solid #EF5350;
+}
+
+label:nth-child(3) input:checked + span:after {
+  background-color: #EF5350;
 }
 
 label input {
