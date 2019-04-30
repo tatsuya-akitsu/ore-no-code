@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import E from '../config/env'
+import { E } from '../store/env'
 
 if (!firebase.apps.length) {
   firebase.initializeApp({

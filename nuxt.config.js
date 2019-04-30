@@ -4,9 +4,13 @@ module.exports = {
     '@nuxtjs/pwa',
     ['nuxt-sass-resources-loader', [
       '~/assets/scss/style.scss'
-    ]]
+    ]],
+    ['@nuxtjs/moment', ['ja']]
   ],
   axios: {},
+  plugins: [
+    '@/plugins/moment'
+  ],
   manifest: {
     name: 'nuxt-start',
     lang: 'ja',

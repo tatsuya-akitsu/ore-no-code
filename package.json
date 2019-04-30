@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.4.1",
+    "@nuxtjs/moment": "^1.2.0",
     "@nuxtjs/pwa": "^3.0.0-beta.14",
     "firebase": "^5.10.1",
     "firebase-tools": "^6.7.1",
+    "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
     "nuxt-sass-resources-loader": "^2.0.5",
