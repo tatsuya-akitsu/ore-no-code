@@ -1,23 +1,25 @@
 <template>
   <div class="container">
     <div class="user-selected-data">
-
       <div class="weather-info">
         <div class="weather-info__inner">
           <h2 class="weather-info__prefectures-name">
-            東京の天気
+            {{ weather.city }}の天気
           </h2>
           <div class="weather-info__layout">
             <div class="whether-icon">
-              <img src="~/assets/img/partly-cloudy.svg" alt="">
+              <img
+                :src="
+                  `http://openweathermap.org/img/w/${
+                    weather.weather.weather.icon
+                  }.png`
+                "
+                alt=""
+              />
             </div>
             <div class="temperature">
-              <p class="temperature__high">
-                24
-              </p>
-              <p class="temperature__low">
-                14
-              </p>
+              <p class="temperature__high">{{ weather.weather.temp_max }}</p>
+              <p class="temperature__low">{{ weather.weather.temp_min }}</p>
             </div>
           </div>
         </div>
@@ -25,40 +27,54 @@
 
       <div class="constitution">
         <div class="constitution__inner">
-          <h2 class="constitution__heading">
-            あなたの体質
-          </h2>
+          <h2 class="constitution__heading">あなたの体質</h2>
           <div class="constitution__layout">
             <div class="constitution__icon">
-              <img src="~/assets/img/men-hot.svg" alt="">
+              <img :src="`/img/${weather.temperature.image}`" alt="" />
             </div>
-            <p class="constitution__text constitution__text--hot">暑がり</p>
+            <p class="constitution__text constitution__text--hot">
+              {{ weather.temperature.label }}
+            </p>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="fashion-image__wrapper">
-      <img class="fashion-image" src="~/assets/img/fashion-very-hot@2x.png" alt="">
+      <img class="fashion-image" :src="`/img/${weather.result.image}`" alt="" />
     </div>
 
     <section class="fashion-desc">
-      <h2 class="fashion-desc__heading">
-        26度以上：半袖、短パンで過ごせる
-      </h2>
-      <p class="fashion-desc__text">
-        日向にいると汗ばむ陽気。
-        <br>日中を通して半袖、短パンで過ごせます。
-      </p>
+      <h2 class="fashion-desc__heading">{{ weather.result.title }}</h2>
+      <p class="fashion-desc__text" v-html="weather.result.text"></p>
     </section>
-
-    <a class="back-to-top-btn" href="/">
-      トップに戻る
-    </a>
-
+    <a class="back-to-top-btn" @click="resetLocalData">トップに戻る</a>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+import { T as G } from '../../store/global/types'
+
+export default {
+  head() {
+    return {
+      title: '本日のおすすめ'
+    }
+  },
+  methods: {
+    resetLocalData() {
+      this.$store.dispatch(`global/${G.RESET_LOCAL_DATA}`)
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    ...mapGetters('global', {
+      weather: 'getResultData'
+    })
+  }
+}
+</script>
 
 <style scoped>
 .container {
@@ -72,16 +88,17 @@
   justify-content: space-between;
 }
 
-.weather-info, .constitution {
+.weather-info,
+.constitution {
   padding: 1px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #016DDC, #56D6FF);
+  background: linear-gradient(135deg, #016ddc, #56d6ff);
   max-width: 280px;
-  width: 100%;
   width: 47.16%;
 }
 
-.weather-info__inner, .constitution__inner {
+.weather-info__inner,
+.constitution__inner {
   padding-top: 16px;
   padding-bottom: 16px;
   background-color: #fff;
@@ -89,9 +106,10 @@
   height: 100%;
 }
 
-.weather-info__prefectures-name, .constitution__heading {
+.weather-info__prefectures-name,
+.constitution__heading {
   font-size: 14px;
-  color: #016DDC;
+  color: #016ddc;
   text-align: center;
   line-height: 1;
   font-weight: normal;
@@ -122,7 +140,7 @@
   right: 0;
   bottom: 0;
   margin: auto;
-  content: "";
+  content: '';
   background-color: #eee;
 }
 
@@ -135,7 +153,7 @@
 
 .temperature:before {
   display: block;
-  content: "";
+  content: '';
   width: 1px;
   height: 44px;
   transform: rotate(45deg);
@@ -149,14 +167,14 @@
 }
 
 .temperature__high {
-  color: #EF5350;
+  color: #ef5350;
   position: absolute;
   top: 0;
   left: 0;
 }
 
 .temperature__low {
-  color: #016DDC;
+  color: #016ddc;
   margin-left: auto;
   position: absolute;
   bottom: 0;
@@ -182,21 +200,21 @@
 }
 
 .constitution__text--hot {
-  color: #EF5350;
-  border: 1px solid #EF5350;
-  background-color: #FFF8F5;
+  color: #ef5350;
+  border: 1px solid #ef5350;
+  background-color: #fff8f5;
 }
 
 .constitution__text--nomal {
-  color: #DC7F01;
-  border: 1px solid #DC7F01;
-  background-color: #FFF9F0;
+  color: #dc7f01;
+  border: 1px solid #dc7f01;
+  background-color: #fff9f0;
 }
 
 .constitution__text--cold {
-  color: #016DDC;
-  border: 1px solid #016DDC;
-  background-color: #F5FAFF;
+  color: #016ddc;
+  border: 1px solid #016ddc;
+  background-color: #f5faff;
 }
 
 .fashion-image__wrapper {
@@ -219,7 +237,7 @@
   font-size: 18px;
   line-height: 1.3;
   font-weight: 600;
-  color: #016DDC;
+  color: #016ddc;
 }
 
 .fashion-desc__text {
@@ -242,8 +260,7 @@
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  background-color: #016DDC;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  background-color: #016ddc;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
-
 </style>

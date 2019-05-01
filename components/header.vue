@@ -8,9 +8,8 @@
 
 <style>
 .header {
-  background: linear-gradient(135deg, #016DDC, #56D6FF);
+  background: linear-gradient(135deg, #016ddc, #56d6ff);
 }
-
 .header-app-name {
   font-weight: 600;
   font-size: 20px;
